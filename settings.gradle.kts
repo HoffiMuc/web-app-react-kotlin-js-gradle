@@ -1,3 +1,7 @@
+rootProject.name = "confexplorer"
+
+include("frontend")
+
 pluginManagement {
     repositories {
         maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
@@ -7,5 +11,4 @@ pluginManagement {
         maven { setUrl("https://plugins.gradle.org/m2/") }
     }
 }
-rootProject.name = "confexplorer"
 
