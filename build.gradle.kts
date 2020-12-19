@@ -49,6 +49,8 @@ kotlin {
                 implementation("org.jetbrains:kotlin-styled:${v.Latest.Release.kotlinStyled.version}")
                 implementation(npm("styled-components", "^${v.Latest.NPM.styledComponents.version}"))
                 implementation(npm("inline-style-prefixer", "~${v.Latest.NPM.inlineStylePrefixer.version}"))
+
+                implementation(npm("react-player", "^${v.Latest.NPM.reactPlayer.version}"))
                 //Share Buttons (chapter 7)
                 implementation(npm("react-share", "~${v.Latest.NPM.reactShare.version}"))
             
