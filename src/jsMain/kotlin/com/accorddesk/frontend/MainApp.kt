@@ -1,10 +1,7 @@
 package com.accorddesk.frontend
 
-import kotlinx.css.*
 import react.*
 import react.dom.*
-import styled.css
-import styled.styledDiv
 
 external interface AppState : RState {
     var currentVideo: Video?
@@ -25,9 +22,6 @@ class MainApp : RComponent<RProps, AppState>() {
             h3 {
                 +"Videos to watch"
             }
-//            child(VideoList::class) {
-//                attrs.videos = unwatchedVideos
-//            }
             videoList {
                 videos = state.unwatchedVideos
                 selectedVideo = state.currentVideo

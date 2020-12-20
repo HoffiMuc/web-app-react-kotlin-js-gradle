@@ -19,29 +19,63 @@ class VideoPlayer : RComponent<VideoPlayerProps, RState>() {
                 top = 10.px
                 right = 10.px
             }
-            styledButton {
-                css {
-                    display = Display.block
-                    backgroundColor = if(props.unwatchedVideo) Color.lightGreen else Color.red
-                }
-                attrs {
-                    onClickFunction = {
-                        props.onWatchedButtonPressed(props.video)
-                    }
-                }
-                if(props.unwatchedVideo) {
-                    +"Mark as watched"
-                }
-                else {
-                    +"Mark as unwatched"
-                }
-            }
             h3 {
                 +"${props.video.speaker}: ${props.video.title}"
             }
-            img {
-                attrs {
-                    src = "https://via.placeholder.com/640x360.png?text=Video+Player+Placeholder"
+            reactPlayer {
+                attrs.url = props.video.videoUrl
+            }
+            styledDiv {
+                css {
+                    header {
+                        display = Display.flex
+                        flexDirection = FlexDirection.row
+                        justifyContent = JustifyContent.center
+                        alignItems = Align.center
+                        verticalAlign = VerticalAlign.middle
+                        marginTop = 5.px
+                        marginBottom = 10.px
+                    }
+                }
+                styledButton {
+                    css {
+                        display = Display.flex
+                        flexDirection = FlexDirection.row
+                        justifyContent = JustifyContent.center
+                        verticalAlign = VerticalAlign.middle
+                        backgroundColor = if (props.unwatchedVideo) Color.lightGreen else Color.darkOrange
+                    }
+                    attrs {
+                        onClickFunction = {
+                            props.onWatchedButtonPressed(props.video)
+                        }
+                    }
+                    if (props.unwatchedVideo) {
+                        +"Mark as watched"
+                    } else {
+                        +"Mark as unwatched"
+                    }
+                }
+
+                styledDiv {
+                    css {
+                        display = Display.flex
+                        marginLeft = 15.px
+                    }
+                    emailShareButton {
+                        attrs.url = props.video.videoUrl
+                        emailIcon {
+                            attrs.size = 32
+                            attrs.round = true
+                        }
+                    }
+                    telegramShareButton {
+                        attrs.url = props.video.videoUrl
+                        telegramIcon {
+                            attrs.size = 32
+                            attrs.round = true
+                        }
+                    }
                 }
             }
         }
