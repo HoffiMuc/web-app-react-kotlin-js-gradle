@@ -16,7 +16,7 @@ class MainApp : RComponent<RProps, AppState>() {
     }
     override fun RBuilder.render() {
         h1 {
-            +"KotlinConf Explorer"
+            +"Youtube Video List:"
         }
         div {
             h3 {

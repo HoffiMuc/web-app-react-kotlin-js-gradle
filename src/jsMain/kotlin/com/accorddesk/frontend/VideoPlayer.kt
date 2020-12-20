@@ -69,6 +69,13 @@ class VideoPlayer : RComponent<VideoPlayerProps, RState>() {
                             attrs.round = true
                         }
                     }
+                    whatsappShareButton {
+                        attrs.url = props.video.videoUrl
+                        whatsappIcon {
+                            attrs.size = 32
+                            attrs.round = true
+                        }
+                    }
                     telegramShareButton {
                         attrs.url = props.video.videoUrl
                         telegramIcon {

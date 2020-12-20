@@ -18,6 +18,12 @@ external val telegramIcon: RClass<IconProps>
 @JsName("TelegramShareButton")
 external val telegramShareButton: RClass<ShareButtonProps>
 
+@JsName("WhatsappIcon")
+external val whatsappIcon: RClass<IconProps>
+
+@JsName("WhatsappShareButton")
+external val whatsappShareButton: RClass<ShareButtonProps>
+
 external interface ShareButtonProps : RProps {
     var url: String
 }
