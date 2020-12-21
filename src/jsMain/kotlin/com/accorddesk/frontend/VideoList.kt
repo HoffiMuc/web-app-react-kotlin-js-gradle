@@ -12,28 +12,27 @@ external interface VideoListProps: RProps {
 }
 
 
-class VideoList: RComponent<VideoListProps, RState>() {
-    override fun RBuilder.render() {
-        for (video in props.videos) {
-            p {
-                key = video.id.toString()
-                attrs {
-                    onClickFunction = {
-                        props.onSelectVideo(video)
-                    }
+fun videoList(initialVideos: List<Video>, initialSelectedVideo: Video?) = functionalComponent<VideoListProps> { props ->
+    props.videos.forEachIndexed { i, video ->
+        p {
+            key = video.id.toString()
+            attrs {
+                onClickFunction = {
+                    props.onSelectVideo(video)
                 }
-                if(video == props.selectedVideo) {
-                    +"▶ "
-                }
-                +"${video.speaker}: ${video.title}"
             }
+            +"${(i+1).toString().padStart(3)}. "
+            if(video == props.selectedVideo) {
+                +"▶ "
+            }
+            +"${video.artist}: ${video.title}"
         }
     }
 }
 
-/** extension function on RBuilder */
-fun RBuilder.videoList(handler: VideoListProps.() -> Unit): ReactElement {
-    return child(VideoList::class) {
-        this.attrs(handler)
-    }
-}
+///** extension function on RBuilder */
+//fun RBuilder.videoList(handler: VideoListProps.() -> Unit): ReactElement {
+//    return child(VideoList::class) {
+//        this.attrs(handler)
+//    }
+//}

@@ -1,66 +1,58 @@
 package com.accorddesk.frontend
 
+import kotlinx.browser.window
+import kotlinx.html.js.onClickFunction
 import react.*
 import react.dom.*
+import kotlin.js.Date
 
-external interface AppState : RState {
-    var currentVideo: Video?
-    var unwatchedVideos: List<Video>
+data class AppState(
+    var currentVideo: Video?,
+    var unwatchedVideos: List<Video>,
     var watchedVideos: List<Video>
+) {
+    fun clone(currentVideo: Video?) = AppState(currentVideo, unwatchedVideos, watchedVideos)
+    fun cloneMoveToOtherList(video: Video) : AppState {
+        return when (unwatchedVideos.contains(video)) {
+            true -> AppState(currentVideo, unwatchedVideos.filter { it != video }, mutableListOf(video).also{it.addAll(watchedVideos)})
+            false -> AppState(currentVideo, mutableListOf(video).also{it.addAll(unwatchedVideos)}, watchedVideos.filter { it != video})
+        }
+    }
 }
 
-class MainApp : RComponent<RProps, AppState>() {
-    override fun AppState.init() {
-        this.unwatchedVideos = com.accorddesk.frontend.unwatchedVideos
-        this.watchedVideos = com.accorddesk.frontend.watchedVideos
+val mainApp = functionalComponent<RProps> {
+    val (appState, setAppState) = useState(AppState(currentVideo = null, unwatchedVideos = unwatchedVideos, watchedVideos = watchedVideos))
+    h1 {
+        +"Youtube Video List"
     }
-    override fun RBuilder.render() {
-        h1 {
-            +"Youtube Video List:"
+    div {
+        h3 {
+            +"Videos to watch:"
         }
-        div {
-            h3 {
-                +"Videos to watch"
-            }
-            videoList {
-                videos = state.unwatchedVideos
-                selectedVideo = state.currentVideo
-                onSelectVideo = { video ->
-                    setState {
-                        currentVideo = video
-                    }
-                }
-            }
-            h3 {
-                +"Videos watched"
-            }
-            videoList {
-                videos = state.watchedVideos
-                selectedVideo = state.currentVideo
-                onSelectVideo = { video ->
-                    setState {
-                        currentVideo = video
-                    }
-                }
+        child(videoList(appState.unwatchedVideos, null)) {
+            attrs.videos = appState.unwatchedVideos
+            attrs.selectedVideo = appState.currentVideo
+            attrs.onSelectVideo = {
+                setAppState(appState.clone(it)) // has to be a new object!!!, so no: appState.currentVideo = it ; setAppState(appState)
             }
         }
-        state.currentVideo?.let { currentVideo ->
-            videoPlayer {
-                video = currentVideo
-                unwatchedVideo = currentVideo in state.unwatchedVideos
-                onWatchedButtonPressed = {
-                    if (video in state.unwatchedVideos) {
-                        setState {
-                            unwatchedVideos -= video
-                            watchedVideos += video
-                        }
-                    } else {
-                        setState {
-                            watchedVideos -= video
-                            unwatchedVideos += video
-                        }
-                    }
-                }
+        h3 {
+            +"Videos watched:"
+        }
+        child(videoList(appState.watchedVideos, null)) {
+            attrs.videos = appState.watchedVideos
+            attrs.selectedVideo = appState.currentVideo
+            attrs.onSelectVideo = {
+                setAppState(appState.clone(it)) // has to be a new object!!!, so no: appState.currentVideo = it ; setAppState(appState)
+            }
+        }
+    }
+    appState.currentVideo?.let { currentVideo ->
+        child(videoPlayer) {
+            attrs.video = currentVideo
+            attrs.unwatchedVideo = currentVideo in appState.unwatchedVideos
+            attrs.onWatchedButtonPressed = {
+                setAppState(appState.cloneMoveToOtherList(it))
             }
         }
     }

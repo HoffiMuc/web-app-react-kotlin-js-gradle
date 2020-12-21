@@ -11,77 +11,75 @@ external interface VideoPlayerProps : RProps {
     var onWatchedButtonPressed: (Video) -> Unit
     var unwatchedVideo: Boolean
 }
-class VideoPlayer : RComponent<VideoPlayerProps, RState>() {
-    override fun RBuilder.render() {
+val videoPlayer = functionalComponent<VideoPlayerProps> { props ->
+    styledDiv {
+        css {
+            position = Position.absolute
+            top = 10.px
+            right = 10.px
+        }
+        h3 {
+            +"${props.video.artist}: ${props.video.title}"
+        }
+        reactPlayer {
+            attrs.url = props.video.videoUrl
+        }
         styledDiv {
             css {
-                position = Position.absolute
-                top = 10.px
-                right = 10.px
+                header {
+                    display = Display.flex
+                    flexDirection = FlexDirection.row
+                    justifyContent = JustifyContent.center
+                    alignItems = Align.center
+                    verticalAlign = VerticalAlign.middle
+                    marginTop = 5.px
+                    marginBottom = 10.px
+                }
             }
-            h3 {
-                +"${props.video.speaker}: ${props.video.title}"
+            styledButton {
+                css {
+                    display = Display.flex
+                    flexDirection = FlexDirection.row
+                    justifyContent = JustifyContent.center
+                    verticalAlign = VerticalAlign.middle
+                    backgroundColor = if (props.unwatchedVideo) Color.lightGreen else Color.darkOrange
+                }
+                attrs {
+                    onClickFunction = {
+                        props.onWatchedButtonPressed(props.video)
+                    }
+                }
+                if (props.unwatchedVideo) {
+                    +"Mark as watched"
+                } else {
+                    +"Mark as unwatched"
+                }
             }
-            reactPlayer {
-                attrs.url = props.video.videoUrl
-            }
+
             styledDiv {
                 css {
-                    header {
-                        display = Display.flex
-                        flexDirection = FlexDirection.row
-                        justifyContent = JustifyContent.center
-                        alignItems = Align.center
-                        verticalAlign = VerticalAlign.middle
-                        marginTop = 5.px
-                        marginBottom = 10.px
+                    display = Display.flex
+                    marginLeft = 15.px
+                }
+                emailShareButton {
+                    attrs.url = props.video.videoUrl
+                    emailIcon {
+                        attrs.size = 32
+                        attrs.round = true
                     }
                 }
-                styledButton {
-                    css {
-                        display = Display.flex
-                        flexDirection = FlexDirection.row
-                        justifyContent = JustifyContent.center
-                        verticalAlign = VerticalAlign.middle
-                        backgroundColor = if (props.unwatchedVideo) Color.lightGreen else Color.darkOrange
-                    }
-                    attrs {
-                        onClickFunction = {
-                            props.onWatchedButtonPressed(props.video)
-                        }
-                    }
-                    if (props.unwatchedVideo) {
-                        +"Mark as watched"
-                    } else {
-                        +"Mark as unwatched"
+                whatsappShareButton {
+                    attrs.url = props.video.videoUrl
+                    whatsappIcon {
+                        attrs.size = 32
+                        attrs.round = true
                     }
                 }
-
-                styledDiv {
-                    css {
-                        display = Display.flex
-                        marginLeft = 15.px
-                    }
-                    emailShareButton {
-                        attrs.url = props.video.videoUrl
-                        emailIcon {
-                            attrs.size = 32
-                            attrs.round = true
-                        }
-                    }
-                    whatsappShareButton {
-                        attrs.url = props.video.videoUrl
-                        whatsappIcon {
-                            attrs.size = 32
-                            attrs.round = true
-                        }
-                    }
-                    telegramShareButton {
-                        attrs.url = props.video.videoUrl
-                        telegramIcon {
-                            attrs.size = 32
-                            attrs.round = true
-                        }
+                telegramShareButton {
+                    attrs.url = props.video.videoUrl
+                    telegramIcon {
+                        attrs.size = 32
+                        attrs.round = true
                     }
                 }
             }
@@ -89,8 +87,8 @@ class VideoPlayer : RComponent<VideoPlayerProps, RState>() {
     }
 }
 
-fun RBuilder.videoPlayer(handler: VideoPlayerProps.() -> Unit): ReactElement {
-    return child(VideoPlayer::class) {
-        this.attrs(handler)
-    }
-}
+//fun RBuilder.videoPlayer(handler: VideoPlayerProps.() -> Unit): ReactElement {
+//    return child(VideoPlayer::class) {
+//        this.attrs(handler)
+//    }
+//}
