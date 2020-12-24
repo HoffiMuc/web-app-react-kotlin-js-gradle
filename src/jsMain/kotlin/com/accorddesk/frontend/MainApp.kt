@@ -1,10 +1,7 @@
 package com.accorddesk.frontend
 
-import kotlinx.browser.window
-import kotlinx.html.js.onClickFunction
 import react.*
 import react.dom.*
-import kotlin.js.Date
 
 data class AppState(
     var currentVideo: Video?,

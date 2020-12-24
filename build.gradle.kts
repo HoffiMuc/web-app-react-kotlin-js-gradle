@@ -30,7 +30,20 @@ apply(from = "buildfiles/buildCheckForUpdates.gradle.kts")
 
 kotlin {
     js {
-        browser {}
+        browser {
+            webpackTask {
+                cssSupport.enabled = true
+            }
+            runTask {
+                cssSupport.enabled = true
+            }
+            testTask {
+                useKarma {
+                    useChromeHeadless()
+                    webpackConfig.cssSupport.enabled = true
+                }
+            }
+        }
         binaries.executable()
     }
 
@@ -42,9 +55,10 @@ kotlin {
                 //React, React DOM + Wrappers (chapter 3)
                 implementation("org.jetbrains:kotlin-react:${v.Latest.Release.kotlinReact.version}")
                 implementation("org.jetbrains:kotlin-react-dom:${v.Latest.Release.kotlinReact.version}")
+                // implementation("org.jetbrains:kotlin-react-router-dom:${v.Latest.Release.kotlinReact.version}")
                 implementation(npm("react", "^${v.Latest.NPM.react.version}"))
                 implementation(npm("react-dom", "^${v.Latest.NPM.react.version}"))
-            
+
                 //Kotlin Styled (chapter 3)
                 implementation("org.jetbrains:kotlin-styled:${v.Latest.Release.kotlinStyled.version}")
                 implementation(npm("styled-components", "^${v.Latest.NPM.styledComponents.version}"))
@@ -56,6 +70,11 @@ kotlin {
             
                 //Coroutines (chapter 8)
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${v.Latest.Release.kotlinxCoroutines.version}")
+
+                // Layout
+//                implementation(npm("css-loader", "^${v.Latest.NPM.cssLoader.version}"))
+//                implementation(npm("style-loader", "^${v.Latest.NPM.styleLoader.version}"))
+                implementation(npm("react-grid-layout", "^${v.Latest.NPM.reactGridLayout.version}"))
             }
         }
     }

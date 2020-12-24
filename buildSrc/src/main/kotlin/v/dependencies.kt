@@ -17,6 +17,9 @@ object Latest {
         styledComponents("5.2.1", "", "", "", ""),
         inlineStylePrefixer("6.0.0", "", "", "", ""),
         reactPlayer("2.7.2", "", "", "", ""),
+        reactGridLayout("0.13.5", "", "", "", ""),
+        cssLoader("5.0.1", "", "", "", ""),
+        styleLoader("2.0.0", "", "", "", ""),
     }
     enum class Release(val version: String, val repo: String, val path: String, val group: String, val artifact: String) {
         kotlin("1.4.21",                      MAVEN, MAVEN2, "org.jetbrains.kotlin",         "kotlin-stdlib-jdk8"),

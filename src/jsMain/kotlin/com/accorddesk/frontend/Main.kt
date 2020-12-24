@@ -19,6 +19,8 @@ val watchedVideos = listOf(
 fun main() {
     val root = document.getElementById("root") ?: throw IllegalStateException("div#root not found, cannot attach application to DOM")
     render(root) {
-        child(mainApp)
+        child(mainApp) {
+//        child(demoGridLayout) {
+        }
     }
 }
