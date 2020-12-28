@@ -1,5 +1,8 @@
-package com.accorddesk.frontend
+package com.accorddesk.frontend.demoplaylist
 
+import com.accorddesk.frontend.Video
+import com.accorddesk.frontend.unwatchedVideos
+import com.accorddesk.frontend.watchedVideos
 import react.*
 import react.dom.*
 

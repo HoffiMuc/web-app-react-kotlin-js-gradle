@@ -1,5 +1,7 @@
 package com.accorddesk.frontend
 
+import com.accorddesk.frontend.demoplaylist.mainApp
+import com.palantir.blueprintjs.Button
 import kotlinx.browser.document
 import react.child
 import react.dom.render
@@ -20,7 +22,13 @@ fun main() {
     val root = document.getElementById("root") ?: throw IllegalStateException("div#root not found, cannot attach application to DOM")
     render(root) {
         child(mainApp) {
+        }
 //        child(demoGridLayout) {
+//        }
+        child(Button::class) {
+            attrs.active = true
+            attrs.icon = "document-open"
+            attrs.text = " My first BlueprintJS Button"
         }
     }
 }

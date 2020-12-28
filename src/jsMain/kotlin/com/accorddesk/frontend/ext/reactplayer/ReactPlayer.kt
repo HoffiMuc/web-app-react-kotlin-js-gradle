@@ -1,7 +1,7 @@
 @file:JsModule("react-player")
 @file:JsNonModule
 
-package com.accorddesk.frontend
+package com.accorddesk.frontend.ext.reactplayer
 
 import react.*
 

@@ -1,5 +1,8 @@
-package com.accorddesk.frontend
+package com.accorddesk.frontend.demoplaylist
 
+import com.accorddesk.frontend.Video
+import com.accorddesk.frontend.ext.reactplayer.reactPlayer
+import com.accorddesk.frontend.ext.reactshare.*
 import kotlinx.css.*
 import kotlinx.html.js.onClickFunction
 import react.*

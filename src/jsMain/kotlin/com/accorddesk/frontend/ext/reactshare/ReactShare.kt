@@ -1,7 +1,7 @@
 @file:JsModule("react-share")
 @file:JsNonModule
 
-package com.accorddesk.frontend
+package com.accorddesk.frontend.ext.reactshare
 
 import react.RClass
 import react.RProps

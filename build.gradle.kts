@@ -74,7 +74,16 @@ kotlin {
                 // Layout
 //                implementation(npm("css-loader", "^${v.Latest.NPM.cssLoader.version}"))
 //                implementation(npm("style-loader", "^${v.Latest.NPM.styleLoader.version}"))
-                implementation(npm("react-grid-layout", "^${v.Latest.NPM.reactGridLayout.version}"))
+                implementation(npm("prop-types", "^15.7.2"))
+                implementation(npm("react-grid-layout", "^${v.Latest.NPM.reactGridLayout.version}", generateExternals = true))
+
+                // blueprintjs
+                implementation("org.jetbrains:kotlin-react-redux:7.2.1-pre.133-kotlin-1.4.21")
+                implementation(npm("react-redux", "^7.2.0"))
+                implementation(npm("redux", "^4.0.5"))
+                implementation(npm("core-js", "^3.8.1"))  // seems to be required by "kotlin-extensions" JS lib
+                implementation(npm("@blueprintjs/core", "^3.36.0"))
+                implementation(npm("@blueprintjs/icons", "^3.23.0"))
             }
         }
     }
