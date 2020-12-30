@@ -1,10 +1,18 @@
 package com.accorddesk.frontend
 
 import com.accorddesk.frontend.demoplaylist.mainApp
-import com.palantir.blueprintjs.Button
+import com.accorddesk.frontend.examplecomponent.exampleCard
+import com.palantir.blueprintjs.*
 import kotlinx.browser.document
+import kotlinx.css.marginTop
+import kotlinx.css.px
 import react.child
+import react.dom.h3
+import react.dom.header
+import react.dom.hr
 import react.dom.render
+import styled.css
+import styled.styledHr
 
 data class Video(val id: Int, val title: String, val artist: String, val videoUrl: String)
 
@@ -19,12 +27,36 @@ val watchedVideos = listOf(
 )
 
 fun main() {
+    kotlinext.js.require("@blueprintjs/core/lib/css/blueprint.css")
+    // kotlinext.js.require("@blueprintjs/core/lib/css/blueprint-icons.css")
     val root = document.getElementById("root") ?: throw IllegalStateException("div#root not found, cannot attach application to DOM")
     render(root) {
+        child(header) {  }
+        child(exampleCard) {
+            attrs.header = "Example Card Component"
+            h3 {
+                +"Card inside Card in Main"
+                child(Card::class) {
+                    child(Button::class) {
+                        attrs.text = "Button without Intent"
+                        attrs.active = true
+                    }
+                    child(Button::class) {
+                        attrs.text = "inactive Button"
+                        attrs.active = false
+                    }
+                }
+            }
+        }
         child(mainApp) {
         }
 //        child(demoGridLayout) {
 //        }
+        styledHr {
+            css {
+                marginTop = 20.px
+            }
+        }
         child(Button::class) {
             attrs.active = true
             attrs.icon = "document-open"

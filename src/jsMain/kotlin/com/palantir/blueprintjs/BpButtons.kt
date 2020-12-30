@@ -27,6 +27,9 @@ external interface IActionProps : IIntentProps, IProps {
 }
 
 external interface IButtonProps : IActionProps {
+    // TODO: hack for std html attributes
+    var href: String?
+
     // artificially added to allow title on button (should probably be on more general props)
     var title: String?
 

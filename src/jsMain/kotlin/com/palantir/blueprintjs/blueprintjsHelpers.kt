@@ -8,26 +8,10 @@ import react.ReactElement
 import react.buildElement
 import react.dom.h2
 
-typealias IconName = String
-
-fun RBuilder.bpIcon(
-    name: IconName,
-    size: Int = Icon.SIZE_STANDARD,
-    intent: Intent = Intent.NONE,
-    title: String? = null,
-    alt: String? = null,
-    className: String? = null,
-    block: RHandler<IIconProps> = {},
-): ReactElement = child(Icon::class) {
-    attrs {
-        this.icon = name
-        this.iconSize = size
-        this.htmlTitle = title
-        this.intent = intent
-        this.title = alt
-        this.className = className
+fun RBuilder.bpAnchorButton(handler: IButtonProps.() -> Unit): ReactElement {
+    return child(AnchorButton::class) {
+        this.attrs(handler)
     }
-    block()
 }
 
 fun RBuilder.bpButton(
@@ -68,89 +52,34 @@ fun RBuilder.bpButtonGroup(
     block()
 }
 
-fun RBuilder.bpInputGroup(
-    large: Boolean = false,
-    placeholder: String = "",
-    rightElement: ReactElement? = null,
-    onChange: (Event) -> Unit,
-): ReactElement = child(InputGroup::class) {
-    attrs {
-        this.large = large
-        this.placeholder = placeholder
-        this.rightElement = rightElement
-        this.onChange = onChange
-    }
-}
-
-fun RBuilder.bpTag(
-    intent: Intent? = null,
-    minimal: Boolean? = null,
-    large: Boolean? = null,
-    round: Boolean? = null,
-    fill: Boolean? = null,
-    active: Boolean? = null,
-    icon: String? = null,
-    block: RHandler<ITagProps> = {},
-): ReactElement = child(Tag::class) {
-    attrs {
-        this.intent = intent
-        this.minimal = minimal
-        this.large = large
-        this.round = round
-        this.fill = fill
-        this.icon = icon
-        this.active = active
-    }
-    block()
-}
-
-fun RBuilder.bpNonIdealState(
+fun RBuilder.bpCallout(
+    intent: Intent? = Intent.NONE,
     icon: IconName? = null,
-    title: ReactElement? = null,
-    description: ReactElement? = null,
-    action: ReactElement? = null,
-    children: ReactElement? = null,
-    block: RHandler<INonIdealStateProps> = {},
-): ReactElement = child(NonIdealState::class) {
+    title: String? = null,
+    block: RHandler<ICalloutProps> = {},
+): ReactElement = child(Callout::class) {
     attrs {
-        this.icon = icon
+        if (icon != null) {
+            this.icon = icon
+        }
         this.title = title
-        this.description = description
-        this.action = action
-        this.children = children
+        this.intent = intent
     }
     block()
 }
 
-fun RBuilder.bpNonIdealState(
-    icon: IconName? = null,
-    title: String,
-    description: ReactElement? = null,
-    action: ReactElement? = null,
-    children: ReactElement? = null,
-    block: RHandler<INonIdealStateProps> = {},
-): ReactElement = bpNonIdealState(icon, buildElement { h2 { +title } }, description, action, children, block)
-
-fun RBuilder.bpOverlay(
-    isOpen: Boolean,
-    autoFocus: Boolean = true,
-    enforceFocus: Boolean = true,
-    usePortal: Boolean = true,
-    hasBackdrop: Boolean = true,
-    canEscapeKeyClose: Boolean = true,
-    canOutsideClickClose: Boolean = true,
-    onClose: () -> Unit = {},
-    block: RHandler<IOverlayProps> = {},
-): ReactElement = child(Overlay::class) {
+fun RBuilder.bpCard(
+    elevation: Elevation = Elevation.ZERO,
+    interactive: Boolean = false,
+    className: String? = null,
+    onClick: () -> Unit = {},
+    block: RHandler<ICardProps> = {},
+): ReactElement = child(Card::class) {
     attrs {
-        this.isOpen = isOpen
-        this.autoFocus = autoFocus
-        this.enforceFocus = enforceFocus
-        this.usePortal = usePortal
-        this.hasBackdrop = hasBackdrop
-        this.canEscapeKeyClose = canEscapeKeyClose
-        this.canOutsideClickClose = canOutsideClickClose
-        this.onClose = { onClose() }
+        this.elevation = elevation
+        this.interactive = interactive
+        this.className = className
+        this.onClick = { onClick() }
     }
     block()
 }
@@ -172,12 +101,8 @@ fun RBuilder.bpDialog(
 ): ReactElement = child(Dialog::class) {
     attrs {
         this.isOpen = isOpen
-        if (title != null) {
-            this.title = title
-        }
-        if (icon != null) {
-            this.icon = icon
-        }
+        if (title != null) this.title = title
+        if (icon != null) this.icon = icon
         this.autoFocus = autoFocus
         this.enforceFocus = enforceFocus
         this.usePortal = usePortal
@@ -185,9 +110,7 @@ fun RBuilder.bpDialog(
         this.canEscapeKeyClose = canEscapeKeyClose
         this.canOutsideClickClose = canOutsideClickClose
         this.isCloseButtonShown = isCloseButtonShown
-        if (transitionName != null) {
-            this.transitionName = transitionName
-        }
+        if (transitionName != null) this.transitionName = transitionName
         this.onClose = { onClose() }
     }
     block()
@@ -224,6 +147,140 @@ fun RBuilder.bpDialog(
     block = block
 )
 
+fun RBuilder.bpDivider(
+    tagName: String? = null,
+    block: RHandler<IDividerProps> = {},
+): ReactElement = child(Divider::class) {
+    attrs {
+        if (tagName != null) {
+            this.tagName = tagName
+        }
+    }
+    block()
+}
+
+fun RBuilder.bpHtmlTable(
+    bordered: Boolean = false,
+    interactive: Boolean = false,
+    condensed: Boolean = false,
+    striped: Boolean = false,
+    block: RHandler<IHTMLTableProps> = {},
+): ReactElement = child(HTMLTable::class) {
+    attrs {
+        this.bordered = bordered
+        this.interactive = interactive
+        this.condensed = condensed
+        this.striped = striped
+    }
+    block()
+}
+
+fun RBuilder.bpIcon(
+    name: IconName,
+    size: Int = Icon.SIZE_STANDARD,
+    intent: Intent = Intent.NONE,
+    title: String? = null,
+    alt: String? = null,
+    className: String? = null,
+    block: RHandler<IIconProps> = {},
+): ReactElement = child(Icon::class) {
+    attrs {
+        this.icon = name
+        this.iconSize = size
+        this.htmlTitle = title
+        this.intent = intent
+        this.title = alt
+        this.className = className
+    }
+    block()
+}
+
+fun RBuilder.bpInputGroup(
+    large: Boolean = false,
+    placeholder: String = "",
+    rightElement: ReactElement? = null,
+    onChange: (Event) -> Unit,
+): ReactElement = child(InputGroup::class) {
+    attrs {
+        this.large = large
+        this.placeholder = placeholder
+        this.rightElement = rightElement
+        this.onChange = onChange
+    }
+}
+
+fun RBuilder.bpNonIdealState(
+    icon: IconName? = null,
+    title: ReactElement? = null,
+    description: ReactElement? = null,
+    action: ReactElement? = null,
+    children: ReactElement? = null,
+    block: RHandler<INonIdealStateProps> = {},
+): ReactElement = child(NonIdealState::class) {
+    attrs {
+        this.icon = icon
+        this.title = title
+        this.description = description
+        this.action = action
+        this.children = children
+    }
+    block()
+}
+
+fun RBuilder.bpNavbar(handler: INavbarProps.() -> Unit): ReactElement {
+    return child(Navbar::class) {
+        this.attrs(handler)
+    }
+}
+fun RBuilder.bpNavbarDivider(handler: INavbarDividerProps.() -> Unit): ReactElement {
+    return child(NavbarDivider::class) {
+        this.attrs(handler)
+    }
+}
+fun RBuilder.bpNavbarGroup(handler: INavbarGroupProps.() -> Unit): ReactElement {
+    return child(NavbarGroup::class) {
+        this.attrs(handler)
+    }
+}
+fun RBuilder.bpNavbarHeading(handler: INavbarHeadingProps.() -> Unit): ReactElement {
+    return child(NavbarHeading::class) {
+        this.attrs(handler)
+    }
+}
+
+fun RBuilder.bpNonIdealState(
+    icon: IconName? = null,
+    title: String,
+    description: ReactElement? = null,
+    action: ReactElement? = null,
+    children: ReactElement? = null,
+    block: RHandler<INonIdealStateProps> = {},
+): ReactElement = bpNonIdealState(icon, buildElement { h2 { +title } }, description, action, children, block)
+
+fun RBuilder.bpOverlay(
+    isOpen: Boolean,
+    autoFocus: Boolean = true,
+    enforceFocus: Boolean = true,
+    usePortal: Boolean = true,
+    hasBackdrop: Boolean = true,
+    canEscapeKeyClose: Boolean = true,
+    canOutsideClickClose: Boolean = true,
+    onClose: () -> Unit = {},
+    block: RHandler<IOverlayProps> = {},
+): ReactElement = child(Overlay::class) {
+    attrs {
+        this.isOpen = isOpen
+        this.autoFocus = autoFocus
+        this.enforceFocus = enforceFocus
+        this.usePortal = usePortal
+        this.hasBackdrop = hasBackdrop
+        this.canEscapeKeyClose = canEscapeKeyClose
+        this.canOutsideClickClose = canOutsideClickClose
+        this.onClose = { onClose() }
+    }
+    block()
+}
+
 fun RBuilder.bpPopover(
     content: ReactElement,
     hoverOpenDelay: Number? = null,
@@ -254,62 +311,24 @@ fun RBuilder.bpPopover(
     block()
 }
 
-fun RBuilder.bpCallout(
-    intent: Intent? = Intent.NONE,
-    icon: IconName? = null,
-    title: String? = null,
-    block: RHandler<ICalloutProps> = {},
-): ReactElement = child(Callout::class) {
+fun RBuilder.bpTag(
+    intent: Intent? = null,
+    minimal: Boolean? = null,
+    large: Boolean? = null,
+    round: Boolean? = null,
+    fill: Boolean? = null,
+    active: Boolean? = null,
+    icon: String? = null,
+    block: RHandler<ITagProps> = {},
+): ReactElement = child(Tag::class) {
     attrs {
-        if (icon != null) {
-            this.icon = icon
-        }
-        this.title = title
         this.intent = intent
-    }
-    block()
-}
-
-fun RBuilder.bpCard(
-    elevation: Elevation = Elevation.ZERO,
-    interactive: Boolean = false,
-    className: String? = null,
-    onClick: () -> Unit = {},
-    block: RHandler<ICardProps> = {},
-): ReactElement = child(Card::class) {
-    attrs {
-        this.elevation = elevation
-        this.interactive = interactive
-        this.className = className
-        this.onClick = { onClick() }
-    }
-    block()
-}
-
-fun RBuilder.bpHtmlTable(
-    bordered: Boolean = false,
-    interactive: Boolean = false,
-    condensed: Boolean = false,
-    striped: Boolean = false,
-    block: RHandler<IHTMLTableProps> = {},
-): ReactElement = child(HTMLTable::class) {
-    attrs {
-        this.bordered = bordered
-        this.interactive = interactive
-        this.condensed = condensed
-        this.striped = striped
-    }
-    block()
-}
-
-fun RBuilder.bpDivider(
-    tagName: String? = null,
-    block: RHandler<IDividerProps> = {},
-): ReactElement = child(Divider::class) {
-    attrs {
-        if (tagName != null) {
-            this.tagName = tagName
-        }
+        this.minimal = minimal
+        this.large = large
+        this.round = round
+        this.fill = fill
+        this.icon = icon
+        this.active = active
     }
     block()
 }

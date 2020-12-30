@@ -12,7 +12,6 @@ external interface VideoListProps: RProps {
     var onSelectVideo: (Video) -> Unit
 }
 
-
 fun videoList(initialVideos: List<Video>, initialSelectedVideo: Video?) = functionalComponent<VideoListProps> { props ->
     props.videos.forEachIndexed { i, video ->
         p {
