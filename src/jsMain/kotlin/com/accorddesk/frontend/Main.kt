@@ -2,14 +2,13 @@ package com.accorddesk.frontend
 
 import com.accorddesk.frontend.demoplaylist.mainApp
 import com.accorddesk.frontend.examplecomponent.exampleCard
+import com.accorddesk.frontend.ui.header.header
 import com.palantir.blueprintjs.*
 import kotlinx.browser.document
 import kotlinx.css.marginTop
 import kotlinx.css.px
 import react.child
 import react.dom.h3
-import react.dom.header
-import react.dom.hr
 import react.dom.render
 import styled.css
 import styled.styledHr

@@ -3,6 +3,7 @@ package com.accorddesk.frontend.demoplaylist
 import com.accorddesk.frontend.Video
 import com.accorddesk.frontend.unwatchedVideos
 import com.accorddesk.frontend.watchedVideos
+import com.palantir.blueprintjs.Card
 import react.*
 import react.dom.*
 
@@ -22,28 +23,30 @@ data class AppState(
 
 val mainApp = functionalComponent<RProps> {
     val (appState, setAppState) = useState(AppState(currentVideo = null, unwatchedVideos = unwatchedVideos, watchedVideos = watchedVideos))
-    h1 {
-        +"Youtube Video List"
-    }
-    div {
-        h3 {
-            +"Videos to watch:"
+    child(Card::class) {
+        h1 {
+            +"Youtube Video List"
         }
-        child(videoList(appState.unwatchedVideos, null)) {
-            attrs.videos = appState.unwatchedVideos
-            attrs.selectedVideo = appState.currentVideo
-            attrs.onSelectVideo = {
-                setAppState(appState.clone(it)) // has to be a new object!!!, so no: appState.currentVideo = it ; setAppState(appState)
+        div {
+            h3 {
+                +"Videos to watch:"
             }
-        }
-        h3 {
-            +"Videos watched:"
-        }
-        child(videoList(appState.watchedVideos, null)) {
-            attrs.videos = appState.watchedVideos
-            attrs.selectedVideo = appState.currentVideo
-            attrs.onSelectVideo = {
-                setAppState(appState.clone(it)) // has to be a new object!!!, so no: appState.currentVideo = it ; setAppState(appState)
+            child(videoList(appState.unwatchedVideos, null)) {
+                attrs.videos = appState.unwatchedVideos
+                attrs.selectedVideo = appState.currentVideo
+                attrs.onSelectVideo = {
+                    setAppState(appState.clone(it)) // has to be a new object!!!, so no: appState.currentVideo = it ; setAppState(appState)
+                }
+            }
+            h3 {
+                +"Videos watched:"
+            }
+            child(videoList(appState.watchedVideos, null)) {
+                attrs.videos = appState.watchedVideos
+                attrs.selectedVideo = appState.currentVideo
+                attrs.onSelectVideo = {
+                    setAppState(appState.clone(it)) // has to be a new object!!!, so no: appState.currentVideo = it ; setAppState(appState)
+                }
             }
         }
     }

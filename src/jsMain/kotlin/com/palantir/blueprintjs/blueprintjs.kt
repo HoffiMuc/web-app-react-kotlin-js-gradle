@@ -101,11 +101,3 @@ external interface IOptionProps : IProps {
     /** Value of this option. */
     var value: Any? // String | Number
 }
-
-external class Classes {
-    companion object {
-        val HTML_TABLE: String = definedExternally
-        val DIALOG_BODY: String = definedExternally
-        val DIALOG_FOOTER: String = definedExternally
-    }
-}
