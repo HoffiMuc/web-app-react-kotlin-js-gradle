@@ -1,10 +1,9 @@
 package com.accorddesk.frontend.ui.header
 
 import com.palantir.blueprintjs.*
-import com.palantir.blueprintjs.CONST.Companion.NS
+import com.palantir.blueprintjs.core.*
 import react.RElementBuilder
 import react.RProps
-import react.dom.div
 import react.functionalComponent
 import react.key
 import styled.styledDiv

@@ -83,6 +83,7 @@ kotlin {
                 implementation(npm("redux", "^4.0.5"))
                 implementation(npm("core-js", "^3.8.1"))  // seems to be required by "kotlin-extensions" JS lib
                 implementation(npm("@blueprintjs/core", "^3.36.0"))
+                implementation(npm("@blueprintjs/select", "^3.15.0"))
                 implementation(npm("@blueprintjs/icons", "^3.23.0"))
             }
         }

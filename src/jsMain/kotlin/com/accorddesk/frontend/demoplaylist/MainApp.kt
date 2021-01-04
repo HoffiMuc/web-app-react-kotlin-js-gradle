@@ -3,7 +3,7 @@ package com.accorddesk.frontend.demoplaylist
 import com.accorddesk.frontend.Video
 import com.accorddesk.frontend.unwatchedVideos
 import com.accorddesk.frontend.watchedVideos
-import com.palantir.blueprintjs.Card
+import com.palantir.blueprintjs.core.Card
 import react.*
 import react.dom.*
 

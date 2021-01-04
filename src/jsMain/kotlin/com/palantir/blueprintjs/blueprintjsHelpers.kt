@@ -1,5 +1,6 @@
 package com.palantir.blueprintjs
 
+import com.palantir.blueprintjs.core.*
 import org.w3c.dom.events.Event
 import org.w3c.dom.events.MouseEvent
 import react.RBuilder

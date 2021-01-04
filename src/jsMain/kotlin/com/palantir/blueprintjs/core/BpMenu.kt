@@ -1,6 +1,6 @@
 @file:JsModule("@blueprintjs/core")
 @file:JsNonModule
-package com.palantir.blueprintjs
+package com.palantir.blueprintjs.core
 
 import kotlinx.html.P
 import org.w3c.dom.HTMLUListElement

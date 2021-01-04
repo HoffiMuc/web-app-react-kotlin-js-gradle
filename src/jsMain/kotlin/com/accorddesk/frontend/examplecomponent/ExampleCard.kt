@@ -1,10 +1,9 @@
 package com.accorddesk.frontend.examplecomponent
 
-import com.accorddesk.frontend.demoplaylist.VideoListProps
-import com.palantir.blueprintjs.Button
-import com.palantir.blueprintjs.ButtonGroup
-import com.palantir.blueprintjs.Card
-import com.palantir.blueprintjs.Intent
+import com.palantir.blueprintjs.core.Button
+import com.palantir.blueprintjs.core.ButtonGroup
+import com.palantir.blueprintjs.core.Card
+import com.palantir.blueprintjs.core.Intent
 import kotlinx.css.*
 import react.RProps
 import react.functionalComponent

@@ -2,6 +2,8 @@
 @file:JsNonModule
 package com.palantir.blueprintjs
 
+import com.palantir.blueprintjs.core.IIntentProps
+import com.palantir.blueprintjs.core.IProps
 import react.PureComponent
 import react.RState
 import react.ReactElement

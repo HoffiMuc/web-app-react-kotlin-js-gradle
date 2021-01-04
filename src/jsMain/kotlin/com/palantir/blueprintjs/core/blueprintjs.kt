@@ -1,6 +1,6 @@
 @file:JsModule("@blueprintjs/core")
 @file:JsNonModule
-package com.palantir.blueprintjs
+package com.palantir.blueprintjs.core
 
 import org.w3c.dom.events.Event
 import react.RProps

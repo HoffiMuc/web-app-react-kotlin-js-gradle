@@ -1,6 +1,6 @@
 package com.accorddesk.frontend.ui.header
 
-import com.palantir.blueprintjs.*
+import com.palantir.blueprintjs.core.*
 import kotlinx.css.height
 import kotlinx.css.px
 import react.functionalComponent

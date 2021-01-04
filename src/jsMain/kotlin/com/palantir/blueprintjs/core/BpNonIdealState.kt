@@ -1,7 +1,8 @@
 @file:JsModule("@blueprintjs/core")
 @file:JsNonModule
-package com.palantir.blueprintjs
+package com.palantir.blueprintjs.core
 
+import com.palantir.blueprintjs.IconName
 import react.PureComponent
 import react.RState
 import react.ReactElement
