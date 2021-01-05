@@ -2,9 +2,9 @@ package com.accorddesk.frontend.demoplaylist
 
 import com.accorddesk.frontend.Video
 import kotlinx.html.js.onClickFunction
-import react.*
-import react.dom.*
-
+import react.RProps
+import react.dom.p
+import react.functionalComponent
 
 external interface VideoListProps: RProps {
     var videos: List<Video>

@@ -3,15 +3,15 @@
 package com.palantir.blueprintjs.select
 
 
-import com.palantir.blueprintjs.core.IProps
 import com.palantir.blueprintjs.ItemListPredicate
 import com.palantir.blueprintjs.ItemListRenderer
 import com.palantir.blueprintjs.ItemPredicate
 import com.palantir.blueprintjs.ItemRenderer
 import com.palantir.blueprintjs.core.IInputGroupProps
+import com.palantir.blueprintjs.core.IProps
 import kotlinx.html.P
-import kotlin.js.*
-import org.w3c.dom.*
+import org.w3c.dom.HTMLElement
+import org.w3c.dom.HTMLInputElement
 import react.PureComponent
 import react.RState
 import react.ReactElement
@@ -46,7 +46,7 @@ external interface IListItemsProps<T> : IProps {
     var onActiveItemChange: ((activeItem: T?, isCreateNewItem: Boolean) -> Unit)?
         get() = definedExternally
         set(value) = definedExternally
-    var onItemSelect: (item: T, event: React.SyntheticEvent__1<HTMLElement>) -> Unit
+    var onItemSelect: (item: T, event: React.SyntheticEvent<HTMLElement>) -> Unit
     var onItemsPaste: ((items: Array<T>) -> Unit)?
         get() = definedExternally
         set(value) = definedExternally
@@ -98,7 +98,7 @@ external interface ISelectState : RState {
     var isOpen: Boolean
 }
 
-external open class Select<T>(props: P, context: Any = definedExternally) : PureComponent<ISelectProps<T>, ISelectState> {
+open external class Select<T>(props: P, context: Any = definedExternally) : PureComponent<ISelectProps<T>, ISelectState> {
     open var TypedQueryList: Any
     open var inputEl: Any
     open var queryList: Any
@@ -118,6 +118,6 @@ external open class Select<T>(props: P, context: Any = definedExternally) : Pure
 
     companion object {
         var displayName: String
-        fun <U> ofType(): Any
+        fun <U> ofType(): Select<U>
     }
 }

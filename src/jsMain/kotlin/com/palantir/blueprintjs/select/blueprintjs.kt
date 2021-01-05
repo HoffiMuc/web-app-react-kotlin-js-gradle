@@ -2,6 +2,9 @@
 @file:JsNonModule
 package com.palantir.blueprintjs.select
 
+import React.MouseEventHandler
+import org.w3c.dom.HTMLElement
+
 external interface IItemModifiers {
     var active: Boolean
     var disabled: Boolean
@@ -9,7 +12,7 @@ external interface IItemModifiers {
 }
 
 external interface IItemRendererProps {
-    var handleClick: Any
+    var handleClick: MouseEventHandler<HTMLElement>
     var index: Number?
         get() = definedExternally
         set(value) = definedExternally

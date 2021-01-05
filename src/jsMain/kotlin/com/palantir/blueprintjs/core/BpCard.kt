@@ -20,7 +20,7 @@ external interface ICardProps : IProps {
 }
 
 open external class Card : PureComponent<ICardProps, RState> {
-    override fun render(): ReactElement
+    override fun render(): ReactElement?
 
     companion object {
         var displayName: String

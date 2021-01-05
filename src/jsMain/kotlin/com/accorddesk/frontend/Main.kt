@@ -2,14 +2,14 @@ package com.accorddesk.frontend
 
 import com.accorddesk.frontend.demoplaylist.mainApp
 import com.accorddesk.frontend.examplecomponent.exampleCard
+import com.accorddesk.frontend.examplecomponent.genericCard
 import com.accorddesk.frontend.ui.header.header
 import com.palantir.blueprintjs.core.Button
-import com.palantir.blueprintjs.core.Card
 import kotlinx.browser.document
 import kotlinx.css.marginTop
 import kotlinx.css.px
 import react.child
-import react.dom.h3
+import react.dom.p
 import react.dom.render
 import styled.css
 import styled.styledHr
@@ -32,22 +32,26 @@ fun main() {
     val root = document.getElementById("root") ?: throw IllegalStateException("div#root not found, cannot attach application to DOM")
     render(root) {
         child(header) {  }
-        child(exampleCard) {
-            attrs.header = "Example Card Component"
-            h3 {
-                +"Card inside Card in Main"
-                child(Card::class) {
-                    child(Button::class) {
-                        attrs.text = "Button without Intent"
-                        attrs.active = true
-                    }
-                    child(Button::class) {
-                        attrs.text = "inactive Button"
-                        attrs.active = false
-                    }
-                }
-            }
+        child(genericCard("header3")) {
+            p { +"paragraph text h3" }
         }
+//        child(exampleSelect) {
+//            attrs.header = "Example Card Component"
+////            h3 {
+////                +"Card inside Card in Main"
+////                child(Card::class) {
+////                    child(Button::class) {
+////                        attrs.text = "Button without Intent"
+////                        attrs.active = true
+////                    }
+////                    child(Button::class) {
+////                        attrs.text = "inactive Button"
+////                        attrs.active = false
+////                    }
+////                }
+////            }
+//        }
+        child(exampleCard) { }
         child(mainApp) {
         }
 //        child(demoGridLayout) {

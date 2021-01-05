@@ -1,40 +1,61 @@
 package com.accorddesk.frontend.examplecomponent
 
-//const FilmSelect = Select.ofType<Films.IFilm>();
-//
-//interface SelectExampleState {
-//    film: Films.IFilm;
-//}
-//
-//export class SelectExample extends React.PureComponent<{}, SelectExampleState> {
-//    public state: SelectExampleState = {
-//        film: Films.TOP_100_FILMS[0]
-//    };
-//
-//    public render() {
-//        const buttonText = this.state.film.title;
-//        return (
-//        <Example header="Select Sandbox">
-//        <FilmSelect
-//        items={Films.TOP_100_FILMS}
-//        itemPredicate={Films.filterFilm}
-//        itemRenderer={Films.renderFilm}
-//        noResults={<MenuItem disabled={true} text="No results." />}
-//        onItemSelect={this.handleValueChange}
-//        >
-//        <Button text={buttonText} rightIcon="caret-down" />
-//        </FilmSelect>
-//        </Example>
-//        );
+import React.SyntheticEvent
+import com.palantir.blueprintjs.ItemPredicate
+import com.palantir.blueprintjs.ItemRenderer
+import com.palantir.blueprintjs.core.Button
+import com.palantir.blueprintjs.core.MenuItem
+import com.palantir.blueprintjs.select.IItemRendererProps
+import com.palantir.blueprintjs.select.Select
+import org.w3c.dom.HTMLElement
+import react.*
+import react.dom.strong
+
+val FilmSelect = Select.ofType<Film>()
+
+interface SelectExampleProps: RProps {
+    var header: String
+}
+
+data class SelectExampleState(
+    var selectedFilm: Film
+)
+
+val exampleSelect = functionalComponent <SelectExampleProps> { props ->
+    val (selectExampleState, setSelectExampleState) = useState(SelectExampleState(TOP_100_FILMS[0]))
+    val buttonText = selectExampleState.selectedFilm.title
+
+//    child(genericCard("Select Sandbox")) {
+//        child(Button::class) {
+//            attrs.text = "inner Button"
+//            attrs.intent = Intent.PRIMARY
+//            attrs.active = true
+//        }
+        child(FilmSelect::class) {
+            attrs.items =  TOP_100_FILMS
+            attrs.itemPredicate = filterFilm
+            attrs.itemRenderer = renderFilm
+            attrs.noResults = { buildElement { child(MenuItem::class) { attrs.disabled = true ; attrs.text = "No results." } } }
+            attrs.onItemSelect = { film: Film, event: SyntheticEvent<HTMLElement> ->
+                setSelectExampleState(SelectExampleState(film))
+            }
+            child(Button::class) {
+                attrs.text = buttonText
+                attrs.rightIcon = "caret-down"
+            }
+        }
 //    }
-//
+
+//    val handleValueChange = { film: Film, event: SyntheticEvent__1<HTMLElement> ->
+//        setSelectExampleState(SelectExampleState(film))
+//    }
 //    private handleValueChange = (film: Films.IFilm) => this.setState({ film });
-//}
+}
 
 data class Film(val title: String, val year: Int, var rank: Int)
 
 /** Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top */
-val TOP_100_FILMS = mutableListOf(
+var TOP_100_FILMS = mutableListOf(
     Film("The Shawshank Redemption", year = 1994, 0 ),
     Film("The Godfather", year = 1972, 0),
     Film("The Godfather: Part II", year = 1974, 0),
@@ -135,73 +156,79 @@ val TOP_100_FILMS = mutableListOf(
     Film("Snatch", year = 2000, 0),
     Film("3 Idiots", year = 2009, 0),
     Film("Monty Python and the Holy Grail", year = 197, 0)
-).mapIndexed { i, film -> film.rank = (i + 1) }
+).mapIndexed { i, film -> Film(film.title, film.year, (i + 1)) }.toTypedArray()
 
-//export const renderFilm: ItemRenderer<IFilm> = (
-//film,
-//{ handleClick, modifiers, query }
-//) => {
-//    if (!modifiers.matchesPredicate) {
-//        return null;
-//    }
-//    const text = `${film.rank}. ${film.title}`;
-//    return (
-//    <MenuItem
-//    active={modifiers.active}
-//    disabled={modifiers.disabled}
-//    label={film.year.toString()}
-//    key={film.rank}
-//    onClick={handleClick}
-//    text={highlightText(text, query)}
-//    />
-//    );
-//};
-//
-//export const filterFilm: ItemPredicate<IFilm> = (query, film) => {
-//    return (
-//            `${film.rank}. ${film.title.toLowerCase()} ${film.year}`.indexOf(
-//                query.toLowerCase()
-//            ) >= 0
-//            );
-//};
-//
-//function highlightText(text: string, query: string) {
-//    let lastIndex = 0;
-//    const words = query
-//            .split(/\s+/)
-//    .filter(word => word.length > 0)
-//    .map(escapeRegExpChars);
-//    if (words.length === 0) {
-//        return [text];
-//    }
-//    const regexp = new RegExp(words.join("|"), "gi");
-//    const tokens: React.ReactNode[] = [];
-//    while (true) {
-//        const match = regexp.exec(text);
-//        if (!match) {
-//            break;
-//        }
-//        const length = match[0].length;
-//        const before = text.slice(lastIndex, regexp.lastIndex - length);
-//        if (before.length > 0) {
-//            tokens.push(before);
-//        }
-//        lastIndex = regexp.lastIndex;
-//        tokens.push(<strong key={lastIndex}>{match[0]}</strong>);
-//    }
-//    const rest = text.slice(lastIndex);
-//    if (rest.length > 0) {
-//        tokens.push(rest);
-//    }
-//    return tokens;
-//}
-//
-//function escapeRegExpChars(text: string) {
-//    return text.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
-//}
-//
+val renderFilm: ItemRenderer<Film> = { film: Film, itemProps: IItemRendererProps ->
+    if (!itemProps.modifiers.matchesPredicate) {
+        buildElement { +"nothing" }
+    }
+    val text = "${film.rank}. ${film.title}"
+    buildElement {
+        child(MenuItem::class) {
+            attrs.key = film.rank.toString()
+            attrs.active = itemProps.modifiers.active
+            attrs.disabled = itemProps.modifiers.disabled
+            attrs.label = film.year.toString()
+            attrs.onClick = {itemProps.handleClick}
+//            attrs.text = highlightText(text, itemProps.query)
+            attrs.text = text
+        }
+    }
+}
+
+val filterFilm : ItemPredicate<Film> = { query: String, film: Film, index: Number, exactMatch: Boolean ->
+    "${film.rank}. ${film.title.toLowerCase()} ${film.year}".indexOf(query.toLowerCase()) >= 0
+}
+
+
+fun highlightText(text: String, query: String) : ReactElement {
+    val words = query.split(Regex("\\s+")).filter { it.length > 0 }.map { escapeRegExpChars(it) }
+    if (words.isEmpty()) { return buildElement {+text} }
+    val partsRE = Regex(words.joinToString("|"), RegexOption.IGNORE_CASE)
+    val tokens = split(text, partsRE)
+    if (tokens.isEmpty()) { return buildElement {+text} }
+    return buildElement {
+        tokens.forEach {
+            if (it.isMatch) {
+                strong { it.isMatch }
+            } else {
+                it.isMatch
+            }
+        }
+    }
+}
+
+fun escapeRegExpChars(text: String) : String {
+    return text.replace(Regex("(["+""".*+?^=!:${'$'}()|\[\]/\\"""+"])"), "\\\\$1");
+}
+
 //export const filmSelectProps = {
 //    itemPredicate: filterFilm,
 //    itemRenderer: renderFilm,
 //    items: TOP_100_FILMS
 //};
+
+data class REPart(val part: String, val isMatch: Boolean)
+/** given a string to search in and a regex that matches (maybe) multiple parts in it<br/>
+ *  returns a list of all matching and non-matching parts of the given string (or else an empty list)<br/>
+ *  e.g.: haystack = "eins zwei drei vier fünf" and partsRE = Regex("zw|vier")<br/>
+ *  result:<br/>
+ *  REPart(part=eins , match=false)<br/>
+ *  REPart(part=zw, match=true)<br/>
+ *  REPart(part=ei drei , match=false)<br/>
+ *  REPart(part=vier, match=true)<br/>
+ *  REPart(part= fünf, match=false)
+ */
+fun split(haystack: String, partsRE: Regex) : List<REPart> {
+    val result = ArrayList<REPart>()
+    var match: MatchResult? = partsRE.find(haystack)
+    var endOfLastMatch = 0
+    while (match != null) {
+        if (match.range.first > endOfLastMatch) { result.add(REPart(haystack.substring(endOfLastMatch, match.range.first), false)) }
+        result.add(REPart(haystack.substring(match.range), true))
+        endOfLastMatch = match.range.last + 1
+        match = match.next()
+    }
+    if (endOfLastMatch < haystack.length) { result.add(REPart(haystack.substring(endOfLastMatch), false)) }
+    return result
+}

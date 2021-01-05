@@ -24,7 +24,7 @@ external interface IActionProps : IIntentProps, IProps {
     var onClick: ((event: MouseEvent) -> Unit)?
 
     /** Action text. Can be any single React renderable. */
-    var text: String?
+    var text: Any? // can be pure String or any ReactElement
 }
 
 external interface IButtonProps : IActionProps {

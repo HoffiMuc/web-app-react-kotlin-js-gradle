@@ -4,10 +4,12 @@
 package React
 
 import kotlinx.html.StyleMedia
-import kotlin.js.*
 import org.w3c.dom.*
-import org.w3c.dom.events.*
-import org.w3c.dom.svg.*
+import org.w3c.dom.events.Event
+import org.w3c.dom.events.EventTarget
+import org.w3c.dom.svg.SVGElement
+import kotlin.js.Json
+import kotlin.js.Promise
 
 external interface RefObject<T> {
     var current: T?
@@ -519,16 +521,16 @@ external interface BaseSyntheticEvent<E, C, T> {
     var type: String
 }
 
-external interface SyntheticEvent<T, E> : BaseSyntheticEvent<E, EventTarget /* EventTarget & T */, EventTarget>
+external interface SyntheticEvent__1<T, E> : BaseSyntheticEvent<E, EventTarget /* EventTarget & T */, EventTarget>
 
-external interface SyntheticEvent__1<T> : SyntheticEvent<T, Event>
+external interface SyntheticEvent<T> : SyntheticEvent__1<T, Event>
 
 
-external interface ClipboardEvent<T: Element> : SyntheticEvent<T, T> {
+external interface ClipboardEvent<T: Element> : SyntheticEvent__1<T, T> {
     var clipboardData: DataTransfer
 }
 
-external interface CompositionEvent<T: Element> : SyntheticEvent<T, T> {
+external interface CompositionEvent<T: Element> : SyntheticEvent__1<T, T> {
     var data: String
 }
 
@@ -549,22 +551,22 @@ external interface PointerEvent<T> : MouseEvent<T, PointerEvent<T>> {
     var isPrimary: Boolean
 }
 
-external interface FocusEvent<T: Element> : SyntheticEvent<T, T> {
+external interface FocusEvent<T: Element> : SyntheticEvent__1<T, T> {
     var relatedTarget: EventTarget?
     override var target: EventTarget /* EventTarget & T */
 }
 
-external interface FormEvent<T: Element> : SyntheticEvent<T, T>
+external interface FormEvent<T: Element> : SyntheticEvent__1<T, T>
 
-external interface InvalidEvent<T: Element> : SyntheticEvent<T, T> {
+external interface InvalidEvent<T: Element> : SyntheticEvent__1<T, T> {
     override var target: EventTarget /* EventTarget & T */
 }
 
-external interface ChangeEvent<T: Element> : SyntheticEvent<T, T> {
+external interface ChangeEvent<T: Element> : SyntheticEvent__1<T, T> {
     override var target: EventTarget /* EventTarget & T */
 }
 
-external interface KeyboardEvent<T: Element> : SyntheticEvent<T, T> {
+external interface KeyboardEvent<T: Element> : SyntheticEvent__1<T, T> {
     var altKey: Boolean
     var charCode: Number
     var ctrlKey: Boolean
@@ -610,7 +612,7 @@ external interface TouchEvent<T> : UIEvent<T, TouchEvent<T>> {
     var touches: TouchList
 }
 
-external interface UIEvent<T, E> : SyntheticEvent<T, E> {
+external interface UIEvent<T, E> : SyntheticEvent__1<T, E> {
     var detail: Number
     var view: AbstractView
 }
@@ -622,13 +624,13 @@ external interface WheelEvent<T> : MouseEvent<T, WheelEvent<T>> {
     var deltaZ: Number
 }
 
-external interface AnimationEvent<T: Element> : SyntheticEvent<T, T> {
+external interface AnimationEvent<T: Element> : SyntheticEvent__1<T, T> {
     var animationName: String
     var elapsedTime: Number
     var pseudoElement: String
 }
 
-external interface TransitionEvent<T: Element> : SyntheticEvent<T, T> {
+external interface TransitionEvent<T: Element> : SyntheticEvent__1<T, T> {
     var elapsedTime: Number
     var propertyName: String
     var pseudoElement: String
