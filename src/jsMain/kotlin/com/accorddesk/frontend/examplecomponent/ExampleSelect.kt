@@ -1,13 +1,12 @@
 package com.accorddesk.frontend.examplecomponent
 
-import React.SyntheticEvent
 import com.palantir.blueprintjs.ItemPredicate
 import com.palantir.blueprintjs.ItemRenderer
 import com.palantir.blueprintjs.core.Button
 import com.palantir.blueprintjs.core.MenuItem
 import com.palantir.blueprintjs.select.IItemRendererProps
 import com.palantir.blueprintjs.select.Select
-import org.w3c.dom.HTMLElement
+import org.w3c.dom.events.Event
 import react.*
 import react.dom.strong
 
@@ -36,7 +35,7 @@ val exampleSelect = functionalComponent <SelectExampleProps> { props ->
             attrs.itemPredicate = filterFilm
             attrs.itemRenderer = renderFilm
             attrs.noResults = { buildElement { child(MenuItem::class) { attrs.disabled = true ; attrs.text = "No results." } } }
-            attrs.onItemSelect = { film: Film, event: SyntheticEvent<HTMLElement> ->
+            attrs.onItemSelect = { film: Film, event: Event ->
                 setSelectExampleState(SelectExampleState(film))
             }
             child(Button::class) {

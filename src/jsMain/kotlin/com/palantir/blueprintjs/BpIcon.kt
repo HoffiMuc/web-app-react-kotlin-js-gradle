@@ -3,12 +3,12 @@
 package com.palantir.blueprintjs
 
 import com.palantir.blueprintjs.core.IIntentProps
-import com.palantir.blueprintjs.core.IProps
 import react.PureComponent
+import react.RProps
 import react.RState
 import react.ReactElement
 
-external interface IIconProps : IIntentProps, IProps {
+external interface IIconProps : IIntentProps, RProps {
     /**
      * Color of icon. This is used as the `fill` attribute on the `<svg>` image
      * so it will override any CSS `color` property, including that set by
@@ -64,7 +64,7 @@ external interface IIconProps : IIntentProps, IProps {
     var title: String?
 }
 
-external class Icon : PureComponent<IIconProps, RState> {
+external class Icon : PureComponent<RProps, RState> {
 
     override fun render(): ReactElement?
 

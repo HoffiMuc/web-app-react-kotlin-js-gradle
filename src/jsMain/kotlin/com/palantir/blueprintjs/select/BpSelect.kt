@@ -8,15 +8,15 @@ import com.palantir.blueprintjs.ItemListRenderer
 import com.palantir.blueprintjs.ItemPredicate
 import com.palantir.blueprintjs.ItemRenderer
 import com.palantir.blueprintjs.core.IInputGroupProps
-import com.palantir.blueprintjs.core.IProps
 import kotlinx.html.P
 import org.w3c.dom.HTMLElement
-import org.w3c.dom.HTMLInputElement
+import org.w3c.dom.events.Event
 import react.PureComponent
+import react.RProps
 import react.RState
 import react.ReactElement
 
-external interface IListItemsProps<T> : IProps {
+external interface IListItemsProps<T> : RProps {
     var activeItem: dynamic /* T? | ICreateNewItem? */
         get() = definedExternally
         set(value) = definedExternally
@@ -46,11 +46,11 @@ external interface IListItemsProps<T> : IProps {
     var onActiveItemChange: ((activeItem: T?, isCreateNewItem: Boolean) -> Unit)?
         get() = definedExternally
         set(value) = definedExternally
-    var onItemSelect: (item: T, event: React.SyntheticEvent<HTMLElement>) -> Unit
+    var onItemSelect: (item: T, event: Event) -> Unit
     var onItemsPaste: ((items: Array<T>) -> Unit)?
         get() = definedExternally
         set(value) = definedExternally
-    var onQueryChange: ((query: String, event: React.ChangeEvent<HTMLInputElement>) -> Unit)?
+    var onQueryChange: ((query: String, event: Event) -> Unit)?
         get() = definedExternally
         set(value) = definedExternally
     var createNewItemFromQuery: ((query: String) -> T)?

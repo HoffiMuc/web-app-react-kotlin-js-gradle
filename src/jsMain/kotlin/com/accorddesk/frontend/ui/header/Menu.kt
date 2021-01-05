@@ -1,6 +1,6 @@
 package com.accorddesk.frontend.ui.header
 
-import com.palantir.blueprintjs.*
+import com.palantir.blueprintjs.Classes
 import com.palantir.blueprintjs.core.*
 import react.RElementBuilder
 import react.RProps
@@ -27,7 +27,7 @@ val menu = functionalComponent<MenuProps> { props ->
                 attrs.inheritDarkTheme = true
                 attrs.position = PopoverPosition.BOTTOM_LEFT
                 attrs.usePortal = true
-                bpButton {
+                child(Button::class) {
                     attrs.title = "NdaDesk"
                     attrs.text = "NdaDesk Menu"
                     attrs.icon = "menu"
@@ -46,7 +46,7 @@ val menu = functionalComponent<MenuProps> { props ->
                 attrs.inheritDarkTheme = true
                 attrs.position = PopoverPosition.BOTTOM_LEFT
                 attrs.usePortal = true
-                bpButton {
+                child(Button::class) {
                     attrs.title = "File"
                     attrs.text = "File"
                     attrs.icon = "document-share"
@@ -65,7 +65,7 @@ val menu = functionalComponent<MenuProps> { props ->
                 attrs.inheritDarkTheme = true
                 attrs.position = PopoverPosition.BOTTOM_LEFT
                 attrs.usePortal = true
-                bpButton {
+                child(Button::class) {
                     attrs.title = "Edit"
                     attrs.text = "Edit"
                     attrs.icon = "edit"
