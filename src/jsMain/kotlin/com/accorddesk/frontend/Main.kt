@@ -35,22 +35,7 @@ fun main() {
         child(genericCard("header3")) {
             p { +"paragraph text h3" }
         }
-//        child(exampleSelect) {
-//            attrs.header = "Example Card Component"
-////            h3 {
-////                +"Card inside Card in Main"
-////                child(Card::class) {
-////                    child(Button::class) {
-////                        attrs.text = "Button without Intent"
-////                        attrs.active = true
-////                    }
-////                    child(Button::class) {
-////                        attrs.text = "inactive Button"
-////                        attrs.active = false
-////                    }
-////                }
-////            }
-//        }
+//        child(exampleSelect) { }
         child(exampleCard) { }
         child(mainApp) {
         }

@@ -1,9 +1,7 @@
+@file:Suppress("INTERFACE_WITH_SUPERCLASS", "OVERRIDING_FINAL_MEMBER", "RETURN_TYPE_MISMATCH_ON_OVERRIDE", "CONFLICTING_OVERLOADS")
 @file:JsModule("@blueprintjs/select")
 @file:JsNonModule
 package com.palantir.blueprintjs.select
-
-import React.MouseEventHandler
-import org.w3c.dom.HTMLElement
 
 external interface IItemModifiers {
     var active: Boolean
@@ -12,7 +10,7 @@ external interface IItemModifiers {
 }
 
 external interface IItemRendererProps {
-    var handleClick: MouseEventHandler<HTMLElement>
+    var handleClick: Any
     var index: Number?
         get() = definedExternally
         set(value) = definedExternally
